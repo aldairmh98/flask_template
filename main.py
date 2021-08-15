@@ -7,6 +7,8 @@ from users.controller.usersController import users_blueprint
 from auth.controller.authController import auth_blueprint
 app = Flask(__name__)
 
+EXCLUDED_TOKEN_PATHS = ['/auth']
+
 @app.route('/', methods=['GET'])
 def welcome():
     return 'Hello world'
@@ -16,7 +18,13 @@ app.register_blueprint(auth_blueprint)
 
 @app.before_request
 def before_request():
+    path = request.path
+    
+    if path in EXCLUDED_TOKEN_PATHS:
+        return
+    
     auth = request.headers.get('Authorization')
+
     if auth is None:
         return jsonify({}), 401
     try:
