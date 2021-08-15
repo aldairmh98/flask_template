@@ -14,5 +14,6 @@
             <li>Env ini proposal file</li>
             <li>MongoDB connection</li>
             <li>A Working auth for master user</li>
+            <li>requirements.txt</li>
         </ul>
 </p>
