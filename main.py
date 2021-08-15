@@ -1,3 +1,5 @@
+from utils.ConfigReader import ConfigReader
+from utils.PyMongoConnection import PyMongoConnection
 from flask import Flask
 from users.controller.usersController import users_blueprint
 app = Flask(__name__)
@@ -9,4 +11,6 @@ def welcome():
 app.register_blueprint(users_blueprint)
 
 if __name__ == '__main__':
+    config = ConfigReader.create()
+    mongo_connection = PyMongoConnection.create(config)
     app.run(debug=True, port=8080, host='0.0.0.0')
